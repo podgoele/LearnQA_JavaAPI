@@ -18,6 +18,10 @@ public class UserRegisterTest extends BaseTestCase {
     private final ApiCoreRequests apiCoreRequests = new ApiCoreRequests();
 
     @Test
+    @Story("Недопустимая регистрация пользователя")
+    @Severity(value = SeverityLevel.CRITICAL)
+    @Description("This test check status code and answer for registration user with uncorrect email.")
+    @DisplayName("Test negative register user with uncorrect email")
     public void testCreateUserWithExistingEmail() {
         String email = "vinkotov@example.com";
 
@@ -36,8 +40,10 @@ public class UserRegisterTest extends BaseTestCase {
     }
 
     @Test
-    @Severity(SeverityLevel.BLOCKER)
-    @Owner("ivanov")
+   @Story("Успешная регистрация пользователя")
+    @Severity(value = SeverityLevel.BLOCKER)
+    @Description("This test successfully register new user with correct user data.")
+    @DisplayName("Test positive register new user")
     public void testCreateUserSuccessfully() {
         String email = DataGenerator.getRandomEmail();
 
@@ -54,13 +60,23 @@ public class UserRegisterTest extends BaseTestCase {
     }
 
     @Test
+   @Story("Недопустимая регистрация пользователя")
+    @Severity(value = SeverityLevel.CRITICAL)
+    @Description("This test check status code and answer for registration user with uncorrect email.")
+    @DisplayName("Test negative register user with uncorrect email")
     public void testCreateUserWithInvalidEmail() {
         String email = "invalidemail.com";
         Response response = apiCoreRequests.createUserWithEmail(email);
         Assertions.assertResponseCodeEquals(response, 400);
         Assertions.assertResponseTextEquals(response, "Invalid email format");
     }
-
+    
+    
+    @Test
+    @Story("Недопустимая регистрация пользователя")
+    @Severity(value = SeverityLevel.CRITICAL)
+    @Description("This test check status code and answer for registration user without required fields.")
+    @DisplayName("Test negative register user without required field")
     @ParameterizedTest
     @ValueSource(strings = {"email", "password", "username", "firstName", "lastName"})
     public void testCreateUserWithoutRequiredField(String field) {
@@ -70,6 +86,10 @@ public class UserRegisterTest extends BaseTestCase {
     }
 
     @Test
+    @Story("Недопустимая регистрация пользователя")
+    @Severity(value = SeverityLevel.NORMAL)
+    @DisplayName("Test negative register user with uncorrect user name")
+      @DisplayName("Test negative register user with very short name")
     public void testCreateUserWithVeryShortName() {
         Response response = apiCoreRequests.createUserWithShortName();
         Assertions.assertResponseCodeEquals(response, 400);
@@ -77,6 +97,9 @@ public class UserRegisterTest extends BaseTestCase {
     }
 
     @Test
+    @Story("Недопустимая регистрация пользователя")
+    @Severity(value = SeverityLevel.NORMAL)
+    @DisplayName("Test negative register user with very long name")
     public void testCreateUserWithVeryLongName() {
         Response response = apiCoreRequests.createUserWithLongName();
         Assertions.assertResponseCodeEquals(response, 400);
