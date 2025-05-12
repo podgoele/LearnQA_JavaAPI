@@ -46,6 +46,8 @@ public class UserAuthTest extends BaseTestCase {
     @Test
     @Description("This test successfully authorize user by email and password.")
     @DisplayName("Test positive auth user")
+    @Story("Успешная авторизация пользователя")
+    @Severity(value = SeverityLevel.BLOCKER)
     public void testAuthUser(){
         Response responseCheckAuth = RestAssured
                 .given()
@@ -57,6 +59,8 @@ public class UserAuthTest extends BaseTestCase {
     }
 
     @ParameterizedTest
+    @Story("Недопустимая авторизация пользователя")
+    @Severity(value = SeverityLevel.CRITICAL)
     @Description("This test checks authorization status without auth token or cookie.")
     @DisplayName("Test negative auth user")
     @ValueSource(strings = {"cookie", "headers"})
