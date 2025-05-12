@@ -20,7 +20,10 @@ public class UserEditTest extends BaseTestCase {
     private final ApiCoreRequests apiCoreRequests = new ApiCoreRequests();
 
     @Test
-    @Severity(SeverityLevel.NORMAL)
+    @Story("Успешное изменение данных пользователя")
+    @Severity(value = SeverityLevel.CRITICAL)
+    @Description("This test successfully edit user data with user's auth cookie and token")
+    @DisplayName("Test positive edit user data with auth")
     public void testEditJustCreatedTest() {
         //Генерация пользователя
         Map<String, String> userData = DataGenerator.getRegistrationData();
@@ -69,7 +72,10 @@ public class UserEditTest extends BaseTestCase {
     }
 
     @Test
-    @TmsLink ("User_Edit_1")
+    @Story("Недопустимое изменение данных пользователя")
+    @Severity(value = SeverityLevel.CRITICAL)
+    @Description("This test check status code and answer for edit user data request without required auth params")
+    @DisplayName("Test negative edit user data without auth")
     public void testEditUserNotAuth() {
         // Регистрация пользователя
         Response responseCreateAuth = apiCoreRequests.registerRandomUser();
@@ -89,6 +95,10 @@ public class UserEditTest extends BaseTestCase {
         Assertions.asserJsonByName(responseEditUser, "error","Auth token not supplied");
     }
     @Test
+    @Story("Недопустимое изменение данных пользователя")
+    @Severity(value = SeverityLevel.CRITICAL)
+    @Description("This test check status code and answer for edit user data-request with auth cookie and token for other user.")
+    @DisplayName("Test negative edit user data with other user's auth")
     public void testEditUserAuthAsOtherUser() {
         // 1. Регистрация первого пользователя
         Map<String, String> userData1 = DataGenerator.getRegistrationData();
@@ -127,6 +137,10 @@ public class UserEditTest extends BaseTestCase {
     }
 
     @Test
+    @Story("Недопустимое изменение данных пользователя")
+    @Severity(value = SeverityLevel.CRITICAL)
+    @Description("This test check status code and answer for change user's email to incorrect email.")
+    @DisplayName("Test negative edit user data with incorrect email")
     public void testEditUserEmailToInvalidFormat() {
         // 1. Регистрация нового пользователя
         Map<String, String> userData = DataGenerator.getRegistrationData();
@@ -168,6 +182,10 @@ public class UserEditTest extends BaseTestCase {
     }
 
     @Test
+    @Story("Недопустимое изменение данных пользователя")
+    @Severity(value = SeverityLevel.NORMAL)
+    @Description("This test check status code and answer for edit user data with incorrect name with 1 symbol.")
+    @DisplayName("Test negative edit user data with incorrect name")
     public void testEditUserFirstNameToVeryShort() {
         // 1. Регистрация пользователя
         Map<String, String> userData = DataGenerator.getRegistrationData();
