@@ -17,6 +17,10 @@ import java.util.Map;
 public class UserGetTest extends BaseTestCase {
     private final ApiCoreRequests apiCoreRequests = new ApiCoreRequests();
     @Test
+    @Story("Успешное получение данных пользователя")
+    @Severity(value = SeverityLevel.CRITICAL)
+    @Description("This test successfully get user data with user's auth cookie and token")
+    @DisplayName("Test positive get user data with auth")
     public void testGetUserDataNotAuth() {
         Response responseUserData = RestAssured
                 .get(apiCoreRequests.getBaseUrl() + "2")
@@ -29,7 +33,9 @@ public class UserGetTest extends BaseTestCase {
     }
 
     @Test
-    @TmsLink("User_Get_1")
+    @Story("Недопустимое получение данных пользователя")
+     @Severity(value = SeverityLevel.CRITICAL)
+
     public void testGetUserDetailsAuthAsSameUser() {
         Map<String, String> authData = new HashMap<>();
         authData.put("email", "vinkotov@example.com");
@@ -57,7 +63,8 @@ public class UserGetTest extends BaseTestCase {
     }
 
     @Test
-    @Severity(SeverityLevel.NORMAL)
+    @Story("Недопустимое получение данных пользователя")
+     @Severity(value = SeverityLevel.CRITICAL)
     public void testGetUserDetailsAuthAsOtherUser() {
 
         Map<String, String> authData = new HashMap<>();
