@@ -20,6 +20,10 @@ public class UserDeleteTest extends BaseTestCase {
     // Тест на удаление пользователя по id2
     @Test
     @Severity(SeverityLevel.CRITICAL)
+    @Story("Проверка невозможности удалить пользователя")
+    @Severity(value = SeverityLevel.CRITICAL)
+    @Description("This test check status code and answer for delete user 2 with role admin")
+    @DisplayName("Test negative delete amin user")
     public void testDeleteProtectedUser() {
 
         Map<String, String> authData = new HashMap<>();
@@ -44,7 +48,11 @@ public class UserDeleteTest extends BaseTestCase {
 
     // Удаление созданного пользователя
     @Test
-    @TmsLink("User-Delete-01")
+    @Story("Успешное удаление пользователя")
+    @Severity(value = SeverityLevel.CRITICAL)
+    @Description("This test successfully delete user with user's auth cookie and token")
+    @DisplayName("Test positive delete user with user's auth params")
+    
     public void testDeleteJustCreatedUser() {
         // 1. Создание нового пользователя
         Map<String, String> userData = DataGenerator.getRegistrationData();
@@ -78,6 +86,10 @@ public class UserDeleteTest extends BaseTestCase {
     }
 
     @Test
+    @Story("Проверка невозможности удалить пользователя")
+    @Severity(value = SeverityLevel.CRITICAL)
+    @Description("This test check status code and answer for delete user with auth cookie and token for other user.")
+    @DisplayName("Test negative delete user with other user's auth")
     public void testDeleteUserWithAnotherAuth() {
         // 1. Создаем пользователя, которого будем пытаться удалить
         Map<String, String> userData = DataGenerator.getRegistrationData();
